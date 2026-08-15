@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Share &amp; Add to Home Screen — test</title>
+
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="theme-color" content="#4f46e5">
+<meta name="description" content="A test page for the Web Share API and Add to Home Screen / PWA install.">
+
+<!-- iOS-specific hints. apple-mobile-web-app-capable is what makes the saved
+     Home Screen tile launch without Safari chrome. -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Share Test">
+
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div id="standalone-banner" class="banner" hidden>
+  🎉 <strong>Launched from the Home Screen.</strong> The install worked — this window has no browser chrome.
+</div>
+
+<main>
+  <header>
+    <img class="logo" src="icons/icon-192.png" alt="" width="64" height="64">
+    <h1>Share test</h1>
+    <p class="sub">A throwaway page for exercising <code>navigator.share()</code> and the
+      &ldquo;Add to Home Screen&rdquo; flow on a real device.</p>
+  </header>
+
+  <section class="card">
+    <h2>1. Share</h2>
+    <p>Opens the native share sheet. On iOS, check whether <em>Add to Home Screen</em> is
+      listed in the sheet that appears.</p>
+    <div class="row">
+      <button id="share-btn" class="primary">Share this page</button>
+      <button id="share-file-btn" class="secondary">Share a file</button>
+      <button id="copy-btn" class="secondary">Copy link</button>
+    </div>
+    <p id="share-note" class="note"></p>
+  </section>
+
+  <section class="card">
+    <h2>2. Add to Home Screen</h2>
+    <div class="row">
+      <button id="install-btn" class="primary" disabled>Install app</button>
+    </div>
+    <p id="install-note" class="note">Waiting for the browser to offer an install prompt…</p>
+
+    <details id="ios-help">
+      <summary>iOS / iPadOS: do it manually</summary>
+      <ol>
+        <li>You must be in <strong>Safari</strong> (Chrome and Firefox on iOS cannot add to the Home Screen).</li>
+        <li>Tap the <strong>Share</strong> button in Safari's own toolbar — the square with the up arrow, not the button on this page.</li>
+        <li>Scroll the sheet and tap <strong>Add to Home Screen</strong>.</li>
+        <li>Tap <strong>Add</strong>, then open the new icon. The green banner at the top of this page confirms it launched standalone.</li>
+      </ol>
+    </details>
+  </section>
+
+  <section class="card">
+    <h2>Environment</h2>
+    <dl id="diagnostics" class="diag"></dl>
+  </section>
+
+  <section class="card">
+    <h2>Log</h2>
+    <p class="note">Every result lands here, so you don't need a desktop debugger attached to your phone.</p>
+    <pre id="log" aria-live="polite"></pre>
+    <div class="row">
+      <button id="clear-log-btn" class="secondary">Clear log</button>
+    </div>
+  </section>
+</main>
+
+<script src="share.js"></script>
+</body>
+</html>
